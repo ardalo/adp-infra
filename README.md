@@ -1,2 +1,2 @@
-# adp-infra
-Maintains the platform infrastructure as code
+# Ardalo Digital Platform Infrastructure
+Platform infrastructure as code.

@@ -1,0 +1,33 @@
+name: CI
+
+on: [push, workflow_dispatch]
+
+env:
+  PROJECT_ID: ${{ secrets.GCP_PROJECT_ID }}
+  GKE_CLUSTER: autopilot-cluster-1
+  GKE_ZONE: us-central1
+
+jobs:
+  deploy_traefik:
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    environment: prod
+    permissions:
+      contents: read
+      id-token: write
+    steps:
+      - uses: actions/checkout@v4
+      - name: Authenticate to Google Cloud
+        uses: google-github-actions/auth@v2
+        with:
+          credentials_json: '${{ secrets.GCP_SERVICE_ACCOUNT_KEY }}'
+      - uses: google-github-actions/get-gke-credentials@v1
+        with:
+          cluster_name: ${{ env.GKE_CLUSTER }}
+          location: ${{ env.GKE_ZONE }}
+      - name: Deploy
+        run: |-
+          helm repo add traefik https://traefik.github.io/charts
+          helm install traefik traefik/traefik
+          kubectl rollout status deployment/traefik
+          kubectl get services -o wide

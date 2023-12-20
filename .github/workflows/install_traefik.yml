@@ -1,4 +1,4 @@
-name: Deploy Treafik
+name: Install Treafik
 
 on: workflow_dispatch
 

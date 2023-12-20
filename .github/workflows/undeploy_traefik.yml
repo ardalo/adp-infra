@@ -1,4 +1,4 @@
-name: Deploy Treafik
+name: Undeploy Treafik
 
 on: workflow_dispatch
 
@@ -25,9 +25,7 @@ jobs:
         with:
           cluster_name: ${{ env.GKE_CLUSTER }}
           location: ${{ env.GKE_ZONE }}
-      - name: Deploy
+      - name: Undeploy
         run: |-
-          helm repo add traefik https://traefik.github.io/charts
-          helm install traefik traefik/traefik
-          kubectl rollout status deployment/traefik
+          helm uninstall traefik
           kubectl get services -o wide

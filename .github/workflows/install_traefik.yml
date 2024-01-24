@@ -27,7 +27,9 @@ jobs:
           location: ${{ env.GKE_ZONE }}
       - name: Deploy
         run: |-
+          helm version
           helm repo add traefik https://traefik.github.io/charts
+          helm repo update
           helm install traefik traefik/traefik
           kubectl rollout status deployment/traefik
           kubectl get services -o wide

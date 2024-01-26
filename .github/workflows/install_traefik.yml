@@ -16,8 +16,7 @@ jobs:
       contents: read
       id-token: write
     steps:
-      - uses: actions/checkout@v4
-      - name: Authenticate to Google Cloud
+      - name: Authenticate to GCP
         uses: google-github-actions/auth@v2
         with:
           credentials_json: '${{ secrets.GCP_SERVICE_ACCOUNT_KEY }}'
@@ -27,7 +26,7 @@ jobs:
           location: ${{ env.GKE_ZONE }}
       - name: Deploy
         run: |-
-          helm version
+          helm version --short
           helm repo add traefik https://traefik.github.io/charts
           helm repo update
           helm install traefik traefik/traefik

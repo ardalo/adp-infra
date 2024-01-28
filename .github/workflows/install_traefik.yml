@@ -3,6 +3,7 @@ name: Install Treafik
 on: workflow_dispatch
 
 env:
+  PROJECT_ID: ${{ secrets.GCP_PROJECT_ID }}
   GKE_CLUSTER: autopilot-cluster-1
   GKE_ZONE: us-central1
 

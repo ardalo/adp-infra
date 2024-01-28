@@ -3,7 +3,6 @@ name: Install Treafik
 on: workflow_dispatch
 
 env:
-  PROJECT_ID: ${{ secrets.GCP_PROJECT_ID }}
   GKE_CLUSTER: autopilot-cluster-1
   GKE_ZONE: us-central1
 
@@ -20,6 +19,7 @@ jobs:
       - name: Authenticate to GCP
         uses: google-github-actions/auth@v2
         with:
+          project_id: ${{ secrets.GCP_PROJECT_ID }}
           workload_identity_provider: '${{ secrets.GCP_WORKLOAD_IDENTITY_PROVIDER }}'
       - uses: google-github-actions/get-gke-credentials@v2
         with:

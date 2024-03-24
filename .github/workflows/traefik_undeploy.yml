@@ -1,4 +1,4 @@
-name: Uninstall Treafik
+name: Undeploy Treafik
 
 on: workflow_dispatch
 
